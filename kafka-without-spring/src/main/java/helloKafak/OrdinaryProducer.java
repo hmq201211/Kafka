@@ -14,6 +14,7 @@ public class OrdinaryProducer {
         properties.put("bootstrap.servers", "127.0.0.1:9092");
         properties.put("key.serializer", StringSerializer.class);
         properties.put("value.serializer", UserSerializer.class);
+        properties.put("partitioner.class", "partitioner.ValuePartitioner");
         try (KafkaProducer<String, User> producer = new KafkaProducer<String, User>(properties)) {
             ProducerRecord<String, User> record;
             for (int i = 0; i < 4; i++) {
