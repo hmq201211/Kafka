@@ -43,10 +43,10 @@ public class ProducerRunner {
         properties.put("bootstrap.servers", "127.0.0.1:9092");
         properties.put("key.serializer", StringSerializer.class);
         properties.put("value.serializer", StringSerializer.class);
-        try (KafkaProducer<String, String> producer = new KafkaProducer<String, String>(properties)) {
+        try (KafkaProducer<String, String> producer = new KafkaProducer<>(properties)) {
             ProducerRecord<String, String> record;
             for (int i = 0; i < SIZE; i++) {
-                record = new ProducerRecord<>("rebalance", String.valueOf(i), String.valueOf(i) + "_ReBalance");
+                record = new ProducerRecord<>("reBalance", String.valueOf(i), i + "_ReBalance");
                 EXECUTOR_SERVICE.execute(new Worker(producer, record));
             }
             COUNT_DOWN_LATCH.await();

@@ -3,7 +3,6 @@ package rebalance;
 import org.apache.kafka.clients.consumer.*;
 import org.apache.kafka.common.TopicPartition;
 import org.apache.kafka.common.serialization.StringDeserializer;
-import serializer.UserDeserializer;
 
 import java.time.Duration;
 import java.util.Collections;
@@ -25,7 +24,7 @@ public class ConsumerWorker implements Runnable {
         properties.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, false);
         this.consumer = new KafkaConsumer<>(properties);
         this.currentOffsets = new HashMap<>();
-        this.consumer.subscribe(Collections.singletonList("rebalance"), new HandlerRebalance(currentOffsets, consumer));
+        this.consumer.subscribe(Collections.singletonList("reBalance"), new HandlerReBalance(currentOffsets, consumer));
     }
 
     @Override
@@ -46,7 +45,7 @@ public class ConsumerWorker implements Runnable {
                 }
                 if (currentOffsets.size() > 0) {
                     for (TopicPartition partition : currentOffsets.keySet()) {
-                        HandlerRebalance.partitionOffsetMap.put(partition, currentOffsets.get(partition).offset());
+                        HandlerReBalance.partitionOffsetMap.put(partition, currentOffsets.get(partition).offset());
                     }
                 }
                 if (flag && count >= 5) {

@@ -9,12 +9,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class HandlerRebalance implements ConsumerRebalanceListener {
+public class HandlerReBalance implements ConsumerRebalanceListener {
     public static ConcurrentHashMap<TopicPartition, Long> partitionOffsetMap = new ConcurrentHashMap<>();
     private final Map<TopicPartition, OffsetAndMetadata> currentOffsets;
     private final KafkaConsumer<String, String> consumer;
 
-    public HandlerRebalance(HashMap<TopicPartition, OffsetAndMetadata> currentOffsets, KafkaConsumer<String, String> consumer) {
+    public HandlerReBalance(HashMap<TopicPartition, OffsetAndMetadata> currentOffsets, KafkaConsumer<String, String> consumer) {
         this.currentOffsets = currentOffsets;
         this.consumer = consumer;
     }
